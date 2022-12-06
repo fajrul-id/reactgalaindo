@@ -1,0 +1,32 @@
+.container_ {
+  width: 1024px;
+  display: inline-block;
+  margin: 0 auto;
+  transition: width 0.1s;
+}
+
+@media (min-width: 640px) {
+  .container_ {
+    width: 640px;
+  }
+}
+@media (min-width: 768px) {
+  .container_ {
+    width: 768px;
+  }
+}
+@media (min-width: 1024px) {
+  .container_ {
+    width: 1024px;
+  }
+}
+@media (min-width: 1280px) {
+  .container_ {
+    width: 1280px;
+  }
+}
+@media (min-width: 1536px) {
+  .container_ {
+    width: 1536px;
+  }
+}
