@@ -24,10 +24,10 @@ img {
 }
 
 .swiper-pagination {
-  margin-bottom: 1.5rem;
+  margin-top: 20px;
 }
 .swiper-pagination-bullet-active {
-  background-color: #000 !important;
+  background-color: #04bfad !important;
 }
 .swiper-slide {
   text-align: center;
@@ -63,8 +63,8 @@ img {
 .swiper-button-prev::after {
   font-size: 2rem;
   opacity: 70%;
-
-  color: #000;
+  padding: 1px;
+  color: #10c9b7;
 }
 @media only screen and (max-width: 600px) {
   /*Big smartphones [426px -> 600px]*/

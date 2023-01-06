@@ -17,8 +17,31 @@ import SwiperCore, {
   Keyboard,
   Autoplay,
 } from "swiper";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function Banner() {
+  const [data, setData] = useState([]);
+
+  const getData = async () => {
+    try {
+      const result = await axios("https://api.koperasi-gim.com/api/banners", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      return result.data.data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getData().then((result) => {
+      setData(result);
+    });
+  }, []);
   SwiperCore.use([Autoplay]);
 
   return (
@@ -27,7 +50,7 @@ export default function Banner() {
         cssMode={true}
         centeredSlides={true}
         autoplay={{
-          delay: 3500,
+          delay: 4500,
           disableOnInteraction: false,
         }}
         mousewheel={true}
@@ -37,93 +60,14 @@ export default function Banner() {
         modules={[Navigation, Pagination, Mousewheel, Keyboard, Autoplay]}
         className="mySwiper"
       >
-        <SwiperSlide>
-          <div className="ss:h-52 sm:h-52 md:h-72 lg:h-[22rem] xl:h-[26rem] flex flex-col justify-between">
-            <img
-              alt=""
-              src="https://cdn.pixabay.com/photo/2016/05/05/02/37/sunset-1373171_1280.jpg"
-            />
-
-            <p>Slide 1</p>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="ss:h-52 sm:h-52 md:h-72 lg:h-[22rem] xl:h-[26rem] flex flex-col justify-between">
-            <img alt="" src="https://i.imgur.com/1FFnTUh.png" />
-
-            <p>Slide 2</p>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="ss:h-52 sm:h-52 md:h-72 lg:h-[22rem] xl:h-[26rem] flex flex-col justify-between">
-            <img
-              alt=""
-              src="https://images.unsplash.com/photo-1498049860654-af1a5c566876?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-            />
-
-            <p>Slide 3</p>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="ss:h-52 sm:h-52 md:h-72 lg:h-[22rem] xl:h-[26rem] flex flex-col justify-between">
-            <img
-              alt=""
-              src="https://images.unsplash.com/photo-1498049860654-af1a5c566876?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-            />
-
-            <p>Slide 4</p>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="ss:h-52 sm:h-52 md:h-72 lg:h-[22rem] xl:h-[26rem] flex flex-col justify-between">
-            <img
-              alt=""
-              src="https://images.unsplash.com/photo-1498049860654-af1a5c566876?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-            />
-
-            <p>Slide 5</p>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="ss:h-52 sm:h-52 md:h-72 lg:h-[22rem] xl:h-[26rem] flex flex-col justify-between">
-            <img
-              alt=""
-              src="https://images.unsplash.com/photo-1498049860654-af1a5c566876?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-            />
-
-            <p>Slide 6</p>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="ss:h-52 sm:h-52 md:h-72 lg:h-[22rem] xl:h-[26rem] flex flex-col justify-between">
-            <img
-              alt=""
-              src="https://images.unsplash.com/photo-1498049860654-af1a5c566876?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-            />
-
-            <p>Slide 7</p>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="ss:h-52 sm:h-52 md:h-72 lg:h-[22rem] xl:h-[26rem] flex flex-col justify-between">
-            <img
-              alt=""
-              src="https://images.unsplash.com/photo-1498049860654-af1a5c566876?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-            />
-
-            <p>Slide 8</p>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="ss:h-52 sm:h-52 md:h-72 lg:h-[22rem] xl:h-[26rem] flex flex-col justify-between">
-            <img
-              alt=""
-              src="https://images.unsplash.com/photo-1498049860654-af1a5c566876?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-            />
-
-            <p>Slide 9</p>
-          </div>
-        </SwiperSlide>
+        {data.map((e, index) => (
+          <SwiperSlide key={index}>
+            <div className="flex flex-col gap-1 items-center">
+              <img className="object-fill rounded-t-lg" alt="" src={e.url} />
+              <p className="w-full h-full text-sm">{e.description}</p>
+            </div>
+          </SwiperSlide>
+        ))}
       </Swiper>
     </>
   );

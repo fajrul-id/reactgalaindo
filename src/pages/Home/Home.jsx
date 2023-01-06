@@ -10,7 +10,7 @@ const Home = () => {
         className="relative px-2 h-[90vh] lg:pt-20 md:pt-16 sm:pt-6 ss:py-0 ss:pb-10 bg-[#EFF6F0] md:px-0"
       >
         <div className="container items-center max-w-6xl px-8 mx-auto xl:px-5">
-          <div className="flex flex-wrap-reverse items-center sm:-mx-3">
+          <div className="flex flex-wrap-reverse items-center">
             <div className="w-full md:w-1/2 md:px-3">
               <div className="w-full pb-6 space-y-6 sm:max-w-md lg:max-w-lg md:space-y-4 lg:space-y-8 xl:space-y-9 sm:pr-5 lg:pr-0 md:pb-0">
                 <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl md:text-4xl lg:text-5xl xl:text-[3.5rem]">
@@ -34,8 +34,8 @@ const Home = () => {
                 </div>
               </div>
             </div>
-            <div className="w-full lg:mt-0 md:mt-0 sm:mt-0 2xl:mt-0 md:w-1/2 ss:mt-4">
-              <div className="w-full h-auto overflow-hidden rounded-md shadow-xl lg:w-full md:w-full ss:w-10/12 ss:mx-auto sm:rounded-xl">
+            <div className="w-full md:w-1/2 z-10 h-[50%] flex justify-center items-center rounded-3xl">
+              <div className="w-[70%] h-[30%] md:w-[450px] lg:w-[550px] md:max-h-full flex justify-between">
                 <Banner />
               </div>
             </div>
@@ -43,7 +43,7 @@ const Home = () => {
         </div>
 
         <div
-          className="fill-[#04BFAD] mt-4 bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden"
+          className="fill-[#04BFAD] mt-4 z-0 bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden"
           style={{ height: "100%", transform: "translateZ(0px)" }}
         >
           <svg

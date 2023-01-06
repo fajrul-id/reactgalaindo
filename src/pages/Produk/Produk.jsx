@@ -1,43 +1,47 @@
 import "./produk.css";
-import React, { useState } from "react";
-import data from "../../constant/productData";
 import ProductCard from "../../components/ProductCard";
-import ProducDetails from "../../components/ProductDetails";
-import Modal from "../../components/Modal";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useEffect, useState } from "react";
+
 const Produk = () => {
-  const [selectedCard, setSelectedCard] = useState({
-    show: false,
-    data: {},
-  });
+  const navigate = useNavigate();
+  const [data, setData] = useState([]);
 
-  const handleSelectedCard = (data) => {
-    setSelectedCard({
-      show: true,
-      data: data,
+  const handleClick = (e) => {
+    navigate("/produk/details", {
+      state: {
+        data: e,
+      },
     });
   };
 
-  const handleCloseModal = () => {
-    setSelectedCard({
-      show: false,
-    });
+  const getProductsData = async () => {
+    try {
+      const result = await axios(
+        "https://api.koperasi-gim.com/api/categories",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return result.data.data;
+      // return result.data.data;
+    } catch (error) {
+      console.error(error);
+    }
   };
+
+  useEffect(() => {
+    getProductsData().then((e) => {
+      setData(e);
+    });
+  }, []);
 
   return (
     <>
-      {selectedCard.show ? (
-        <Modal handleClose={handleCloseModal}>
-          <div className="flex ss:flex-col sm:flex-row  items-center">
-            <span className="flex items-center justify-center w-1/2 sm:w-full ss:w-full">
-              <img alt="" className="w-2/5" src={selectedCard.data.image} />
-            </span>
-            <ProducDetails
-              title={selectedCard.data.title}
-              text={selectedCard.data.text}
-            />
-          </div>
-        </Modal>
-      ) : null}
       <section
         id="produk"
         className="relative w-full bg-gray-100 pt-7 pb-7 md:pt-10 md:pb-24"
@@ -52,12 +56,12 @@ const Produk = () => {
         <div className="p-24 pt-8 flex flex-wrap items-center justify-center w-screen">
           {data.map((e) => (
             <ProductCard
-              title={e.title}
-              svgColor={e.svgColor}
-              img={e.image}
+              title={e.name}
+              svgColor={e.svgcolor}
+              img={e.productlogo}
               key={e.id}
               onClick={() => {
-                handleSelectedCard(e);
+                handleClick(e);
               }}
             />
           ))}

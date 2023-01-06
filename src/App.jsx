@@ -11,6 +11,8 @@ import Notfound from "./pages/Notfound/Notfound";
 import Produk from "./pages/Produk/Produk";
 import Struktur from "./pages/Struktur/Struktur";
 import Unitusaha from "./pages/Unitusaha/Unitusaha";
+import ProductDetails from "./pages/Produk/ProdukDetails";
+import UnitUsahaDetails from "./pages/Unitusaha/UnitUsahaDetails";
 
 const App = () => {
   return (
@@ -20,9 +22,11 @@ const App = () => {
         <Route exact path="/" element={<Home />} />
         <Route exact path="/home" element={<Home />} />
         <Route exact path="/produk" element={<Produk />} />
+        <Route path="/produk/details" element={<ProductDetails />} />
         <Route exact path="/struktur" element={<Struktur />} />
         <Route exact path="/kontak" element={<Kontak />} />
         <Route exact path="/unitusaha" element={<Unitusaha />} />
+        <Route path="/unitusaha/details" element={<UnitUsahaDetails />} />
         <Route exact path="/legalitas" element={<Legalitas />} />
         <Route exact path="*" element={<Notfound />} />
       </Routes>

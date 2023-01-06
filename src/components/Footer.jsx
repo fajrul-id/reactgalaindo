@@ -1,8 +1,8 @@
 import React from "react";
-
-import Logo from "../images/LOGO.png";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
+  const Logo = "assets/img/LOGO.png";
   return (
     <>
       <footer className="relative bg-white pt-8 pb-6">
@@ -45,7 +45,7 @@ const Footer = () => {
             </p>
           </a>
           <div className="flex items-center justify-around w-2/3 pt-5 lg:pt-0 lg:w-1/3 ">
-            <a href="#">
+            <Link href="/">
               <svg
                 className="text-gray-700 hover:text-gray-800"
                 width="35"
@@ -59,8 +59,8 @@ const Footer = () => {
                   fill="currentColor"
                 />
               </svg>
-            </a>
-            <a href="#">
+            </Link>
+            <Link href="#">
               <svg
                 className="text-gray-700 hover:text-gray-800"
                 width="35"
@@ -74,8 +74,8 @@ const Footer = () => {
                   fill="currentColor"
                 />
               </svg>
-            </a>
-            <a href="#">
+            </Link>
+            <Link href="#">
               <svg
                 className="text-gray-700 hover:text-gray-800"
                 width="35"
@@ -89,7 +89,7 @@ const Footer = () => {
                   fill="currentColor"
                 />
               </svg>
-            </a>
+            </Link>
           </div>
         </div>
         <hr className="my-6 border-gray-400" />

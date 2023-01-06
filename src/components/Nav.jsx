@@ -1,18 +1,50 @@
 import React, { useEffect, useState } from "react";
 import { Transition } from "@headlessui/react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import Logokoperasi from "../images/Logo-Koperasi-png.png";
-import Logo from "../images/LOGO.png";
-import { links } from "../data";
 import "./navbar.css";
 import { HashLink } from "react-router-hash-link";
+import axios from "axios";
 
 function Nav() {
+  const Logokoperasi = "assets/img/Logo-Koperasi-png.png";
+  const Logo = "assets/img/LOGO.png";
+  const [data, setData] = useState([]);
+  const [home, setHome] = useState([]);
+  const [info, setInfo] = useState([]);
+  const scrollTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const getNavData = async () => {
+    try {
+      const result = await axios(
+        "https://api.koperasi-gim.com/api/navigations",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return result.data.data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getNavData().then((e) => {
+      setData(e);
+      setHome(e.find((data) => data.id === 1));
+      setInfo(e.find((data) => data.id === 2));
+    });
+  }, []);
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation(); // once ready it returns the 'window.location' object
+
   const [url, setUrl] = useState(null);
   useEffect(() => {
-    setUrl(location.pathname);
+    setUrl(location.hash ? location.hash : location.pathname);
   }, [location]);
   // ...
   return (
@@ -21,7 +53,11 @@ function Nav() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="w-full flex items-center justify-between h-16">
             <div className="w-full flex items-center justify-between">
-              <Link to="/" className="flex gap-1 justify-between items-center">
+              <Link
+                to="/"
+                className="flex gap-1 justify-between items-center"
+                onClick={scrollTop}
+              >
                 <img
                   className="w-[4.3rem] h-[2.3rem] object-fill"
                   src={Logo}
@@ -41,35 +77,37 @@ function Nav() {
                 <ul className="flex items-center gap-2 md:gap-1">
                   <li className="nav_item min-w-fit">
                     <NavLink
+                      onClick={scrollTop}
                       to="/"
                       className={
-                        "text-slate-50 hover:text-white hover:bg-[#048C73] px-3 py-2 rounded-xl lg:text-[.9rem] font-normal md:text-[12px] md:px-2 md:py-1 sm:text-[10px]" +
+                        "text-slate-50 capitalize hover:text-white hover:bg-[#048C73] px-3 py-2 rounded-xl lg:text-[.9rem] font-normal md:text-[12px] md:px-2 md:py-1 sm:text-[10px]" +
                         (url === `/` ? " is-active" : "")
                       }
                     >
-                      Home
+                      {home?.name}
                     </NavLink>
                   </li>
                   <li className="nav_item min-w-fit">
                     <HashLink
                       smooth
-                      to="/#info"
+                      to={info?.path}
                       className={
-                        "text-slate-50 hover:text-white hover:bg-[#048C73] px-3 py-2 rounded-xl lg:text-[.9rem] font-normal md:text-[12px] md:px-2 md:py-1 sm:text-[10px]" +
+                        "text-slate-50 capitalize hover:text-white hover:bg-[#048C73] px-3 py-2 rounded-xl lg:text-[.9rem] font-normal md:text-[12px] md:px-2 md:py-1 sm:text-[10px]" +
                         (url === `#info` ? " is-active" : "")
                       }
                     >
                       {" "}
-                      Info
+                      {info?.name}
                     </HashLink>
                   </li>
-                  {links.map(({ id, name, path }, index) => {
+                  {data.slice(2, 7).map(({ id, name, path }, index) => {
                     return (
                       <li key={id} className="nav_item min-w-fit">
                         <NavLink
+                          onClick={scrollTop}
                           to={path}
                           className={
-                            "text-slate-50 hover:text-white hover:bg-[#048C73] px-3 py-2 rounded-xl lg:text-[.9rem] font-normal md:text-[12px] md:px-2 md:py-1 sm:text-[10px]" +
+                            "text-slate-50 capitalize hover:text-white hover:bg-[#048C73] px-3 py-2 rounded-xl lg:text-[.9rem] font-normal md:text-[12px] md:px-2 md:py-1 sm:text-[10px]" +
                             (url === `${path}` ? " is-active" : "")
                           }
                         >
@@ -142,40 +180,46 @@ function Nav() {
           <ul className="bg-gray-600 opacity-80 w-[250px] h-full flex flex-col text-jv-light px-6 py-4 z-[100] ml-auto overflow-y-auto rounded-l-xl items-center">
             <li className="nav_item  flex flex-wrap mt-4 min-w-fit">
               <NavLink
-                onClick={() => setIsOpen(!isOpen)}
+                onClick={() => {
+                  setIsOpen(!isOpen);
+                  scrollTop();
+                }}
                 to="/"
                 className={
-                  " hover:bg-[#048C73] drop-shadow-md  border-gray-700 border-opacity-70 text-white block px-3 py-2  sm:text-xs font-medium" +
+                  " hover:bg-[#048C73] capitalize drop-shadow-md  border-gray-700 border-opacity-70 text-white block px-3 py-2  sm:text-xs font-medium" +
                   "" +
                   (url === `/` ? " is-active" : "")
                 }
               >
-                Home
+                {home?.name}
               </NavLink>
             </li>
             <li className="nav_item min-w-fit">
               <HashLink
                 onClick={() => setIsOpen(!isOpen)}
                 smooth
-                to="/#info"
+                to={info?.path}
                 className={
-                  "hover:bg-[#048C73] drop-shadow-md border-t border-gray-700 border-opacity-70 text-white block px-3 py-2  sm:text-xs font-medium" +
+                  "hover:bg-[#048C73] capitalize drop-shadow-md border-t border-gray-700 border-opacity-70 text-white block px-3 py-2  sm:text-xs font-medium" +
                   "" +
                   (url === `#info` ? " is-active" : "")
                 }
               >
                 {" "}
-                Info
+                {info?.name}
               </HashLink>
             </li>
-            {links.map(({ id, name, path }, index) => {
+            {data.slice(2, 7).map(({ id, name, path }, index) => {
               return (
                 <li key={id} className="nav_item">
                   <Link
-                    onClick={() => setIsOpen(!isOpen)}
+                    onClick={() => {
+                      setIsOpen(!isOpen);
+                      scrollTop();
+                    }}
                     to={path}
                     className={
-                      "hover:bg-[#048C73] drop-shadow-md border-t border-gray-700 border-opacity-70 text-white block px-3 py-2  sm:text-xs font-medium" +
+                      "hover:bg-[#048C73] capitalize drop-shadow-md border-t border-gray-700 border-opacity-70 text-white block px-3 py-2  sm:text-xs font-medium" +
                       (url === `${path}` ? " is-active" : "")
                     }
                   >

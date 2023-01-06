@@ -42,7 +42,7 @@ const ProductCard = ({ svgColor, img, title, onClick }) => {
         <img className="relative w-40" src={img} alt="" />
       </div>
       <div className="relative flex flex-col gap-2 items-center text-white px-4 pb-4 mt-4">
-        <span className="block font-semibold -mb-1">{title}</span>
+        <span className="block font-semibold -mb-1 capitalize">{title}</span>
         <span className="cursor-pointer block bg-white rounded-full text-orange-500 text-xs font-bold px-[20px] py-2 leading-none items-center">
           Lihat Detail
         </span>
